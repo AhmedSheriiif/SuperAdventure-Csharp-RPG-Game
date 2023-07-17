@@ -37,9 +37,9 @@ namespace Engine.Logic
             if (_requiredLocation.ItemRequiredToEnter != null)
             {
                 bool itemFound = false;
-                foreach (Item item in _currentPlayer.InventoryItems.Keys)
+                foreach (int itemID in _currentPlayer.InventoryItems.Keys)
                 {
-                    if ((_requiredLocation.ItemRequiredToEnter.ID == item.ID) && (_currentPlayer.InventoryItems[item] > 0))
+                    if ((_requiredLocation.ItemRequiredToEnter.ID == itemID) && (_currentPlayer.InventoryItems[itemID] > 0))
                     {
                         itemFound = true;
                     }

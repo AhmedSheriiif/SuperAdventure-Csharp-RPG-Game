@@ -77,16 +77,16 @@ namespace Engine
         private static void PopulateMonsters()
         {
             Monster rat = new Monster(MONSTER_ID_RAT, "Rat", 5, 3, 10, 3, 3);
-            rat.AddLootItem(ItemByID(ITEM_ID_RAT_TAIL), 75);
-            rat.AddLootItem(ItemByID(ITEM_ID_PIECE_OF_FUR), 75);
+            rat.AddLootItem(ITEM_ID_RAT_TAIL, 75);
+            rat.AddLootItem(ITEM_ID_PIECE_OF_FUR, 75);
 
             Monster snake = new Monster(MONSTER_ID_SNAKE, "Snake", 5, 3, 10, 3, 3);
-            snake.AddLootItem(ItemByID(ITEM_ID_SNAKE_FANG), 75);
-            snake.AddLootItem(ItemByID(ITEM_ID_SNAKESKIN), 75);
+            snake.AddLootItem(ITEM_ID_SNAKE_FANG, 75);
+            snake.AddLootItem(ITEM_ID_SNAKESKIN, 75);
 
             Monster giantSpider = new Monster(MONSTER_ID_GIANT_SPIDER, "Giant spider", 20, 5, 40, 10, 10);
-            giantSpider.AddLootItem(ItemByID(ITEM_ID_SPIDER_FANG), 75);
-            giantSpider.AddLootItem(ItemByID(ITEM_ID_SPIDER_SILK), 25);
+            giantSpider.AddLootItem(ITEM_ID_SPIDER_FANG, 75);
+            giantSpider.AddLootItem(ITEM_ID_SPIDER_SILK, 25);
 
             Monsters.Add(rat);
             Monsters.Add(snake);
@@ -102,7 +102,7 @@ namespace Engine
                     "Clear the alchemist's garden",
                     "Kill rats in the alchemist's garden and bring back 3 rat tails. You will receive a healing potion and 10 gold pieces.", 20, 10);
 
-            clearAlchemistGarden.AddRequiredItemToComplete(ItemByID(ITEM_ID_RAT_TAIL), 3);
+            clearAlchemistGarden.AddRequiredItemToComplete(ITEM_ID_RAT_TAIL, 3);
             clearAlchemistGarden.RewardItem = ItemByID(ITEM_ID_HEALING_POTION);
 
             Quest clearFarmersField =
@@ -111,7 +111,7 @@ namespace Engine
                     "Clear the farmer's field",
                     "Kill snakes in the farmer's field and bring back 3 snake fangs. You will receive an adventurer's pass and 20 gold pieces.", 20, 20);
 
-            clearFarmersField.AddRequiredItemToComplete(ItemByID(ITEM_ID_SNAKE_FANG), 3);
+            clearFarmersField.AddRequiredItemToComplete(ITEM_ID_SNAKE_FANG, 3);
             clearFarmersField.RewardItem = ItemByID(ITEM_ID_ADVENTURER_PASS);
 
             Quests.Add(clearAlchemistGarden);

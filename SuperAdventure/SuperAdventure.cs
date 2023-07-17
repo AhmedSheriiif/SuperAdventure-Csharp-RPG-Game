@@ -24,6 +24,7 @@ namespace SuperAdventure
             InitializeComponent();
             InitiateMap();
             _player = new Player(iD: 0, name: "Ahmed", maxHitPoints: 10, currentHitPoints: 10, gold: 20, experiencePoints: 0, level: 1);
+            _player.InventoryItems.Add(4, 3); // Adding 3 Snake Fangs for Testing.
 
             lblPlayerName.Text = _player.Name;
             lblHitPoints.Text = _player.CurrentHitPoints.ToString();
@@ -86,17 +87,22 @@ namespace SuperAdventure
             }
             else if (MovementResult == 3)
             {
-                SolveQuest(location.QuestAvailable);
+                SolveQuest(location);
             }
 
         }
 
-        private void SolveQuest(Quest quest)
+        private void SolveQuest(Location location)
         {
+            Quest quest = location.QuestAvailable;
             int QuestCompletionResult = QuestCompleting.CompleteTheQuest(_player, quest);
             if (QuestCompletionResult == 0)
             {
                 rtbMessages.Text += "Quest " + quest.Name + " Completed" + Environment.NewLine;
+                rtbMessages.Text += "You got " + quest.RewardExperiencePoints + " Experience Points" + Environment.NewLine;
+                rtbMessages.Text += "You got " + quest.RewardGold + " Gold" + Environment.NewLine;
+                rtbMessages.Text += "You got " + quest.RewardItem.Name + " and added to your inventory " + Environment.NewLine;
+                UpdateCurrentLocation(location);
             }
             else if (QuestCompletionResult == 1)
             {
@@ -104,9 +110,15 @@ namespace SuperAdventure
             }
             else if (QuestCompletionResult == 2)
             {
-                rtbMessages.Text += "Sorry, you don't have enought items to Complete this Quest, try Collecting some first" + Environment.NewLine;
+                rtbMessages.Text += "Sorry, you don't have enought items to Complete this Quest" + Environment.NewLine;
+                rtbMessages.Text += "This quest requires: " + Environment.NewLine;
+                foreach(var entry in quest.RequiredItemsToComplete)
+                {
+                    rtbMessages.Text += entry.Value + " " + World.ItemByID(entry.Key).NamePlural + Environment.NewLine;
+                }
             }
         }
+
 
         private void UpdateCurrentLocation(Location location)
         {
@@ -160,7 +172,7 @@ namespace SuperAdventure
                     rtbLocations.Text += "Items Required for this Quest:" + Environment.NewLine;
                     foreach (var entry in _player.CurrentLocation.QuestAvailable.RequiredItemsToComplete)
                     {
-                        rtbLocations.Text += entry.Key.Name + ": " + entry.Value + Environment.NewLine;
+                        rtbLocations.Text += World.ItemByID(entry.Key).Name + ": " + entry.Value + Environment.NewLine;
                     }
                 }
             }

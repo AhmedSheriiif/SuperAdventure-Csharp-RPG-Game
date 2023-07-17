@@ -29,13 +29,13 @@ namespace Engine.Logic
         {
             foreach(var itemEntry in _currentQuest.RequiredItemsToComplete)
             {
-                int itemID = itemEntry.Key.ID;
+                int itemID = itemEntry.Key;
                 int itemAmount = itemEntry.Value;
                 bool PlayerHasEnoughtItems = false;
 
                 foreach(var inventoryItem in _player.InventoryItems)
                 {
-                    if(inventoryItem.Key.ID == itemID && inventoryItem.Value >= itemAmount)
+                    if(inventoryItem.Key == itemID && inventoryItem.Value >= itemAmount)
                         PlayerHasEnoughtItems = true;
                 }
                 if (!PlayerHasEnoughtItems) return false;
@@ -50,15 +50,16 @@ namespace Engine.Logic
             // Remove Items from the Player
             foreach (var itemEntry in _currentQuest.RequiredItemsToComplete)
             {
-                int itemID = itemEntry.Key.ID;
+                int itemID = itemEntry.Key;
                 int itemAmount = itemEntry.Value;
 
                 foreach (var inventoryItem in _player.InventoryItems)
                 {
-                    if (inventoryItem.Key.ID == itemID)
+                    if (inventoryItem.Key == itemID)
                     {
                         int updatedAmount = inventoryItem.Value - itemAmount;
                         _player.InventoryItems[inventoryItem.Key] = updatedAmount;
+                        break;
                     }
                 }
             }
@@ -68,7 +69,7 @@ namespace Engine.Logic
         {
             _player.Gold += _currentQuest.RewardGold;
             _player.ExperiencePoints += _currentQuest.RewardExperiencePoints;
-            _player.AddItem(_currentQuest.RewardItem);
+            _player.AddItem(_currentQuest.RewardItem.ID);
         }
 
         public static int CompleteTheQuest(Player player, Quest quest)
@@ -79,6 +80,7 @@ namespace Engine.Logic
             if (!DoesPlayerHaveItemsToCompleteQuest()) return 2;
 
             RemovePlayerItemsToCompleteQuest();
+            PlayerGetRewards();
             quest.Completed = true;
             return 0;
         }
