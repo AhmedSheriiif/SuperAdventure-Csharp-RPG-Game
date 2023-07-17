@@ -14,6 +14,7 @@ namespace Engine
         public static readonly List<Monster> Monsters = new List<Monster>();
         public static readonly List<Quest> Quests = new List<Quest>();
         public static readonly List<Location> Locations = new List<Location>();
+        public static readonly List<MapLocationEntity> MapLocationEntites = new List<MapLocationEntity>();
 
         // Items IDs
         public const int ITEM_ID_RUSTY_SWORD = 1;
@@ -54,6 +55,7 @@ namespace Engine
             PopulateMonsters();
             PopulateQuests();
             PopulateLocations();
+            PopulateMapLocationEntities();
         }
 
         // Creating Items in the Game
@@ -179,6 +181,30 @@ namespace Engine
             Locations.Add(farmersField);
             Locations.Add(bridge);
             Locations.Add(spiderField);
+        }
+
+        private static void PopulateMapLocationEntities()
+        {
+            var home = new MapLocationEntity(2, 3, LOCATION_ID_HOME);
+            var townSquare = new MapLocationEntity(2, 2, LOCATION_ID_TOWN_SQUARE);
+            var farmHouse = new MapLocationEntity(1, 2, LOCATION_ID_FARMHOUSE);
+            var farmersField = new MapLocationEntity(0, 2, LOCATION_ID_FARM_FIELD);
+            var alchemistHunt = new MapLocationEntity(2, 1, LOCATION_ID_ALCHEMIST_HUT);
+            var alchemistGarden = new MapLocationEntity(2, 0, LOCATION_ID_ALCHEMISTS_GARDEN);
+            var guardPost = new MapLocationEntity(3, 2, LOCATION_ID_GUARD_POST);
+            var bridge = new MapLocationEntity(4, 2, LOCATION_ID_BRIDGE);
+            var spiderField = new MapLocationEntity(5, 2, LOCATION_ID_SPIDER_FIELD);
+
+            MapLocationEntites.Add(home);
+            MapLocationEntites.Add(townSquare);
+            MapLocationEntites.Add(farmHouse);
+            MapLocationEntites.Add(farmersField);
+            MapLocationEntites.Add(alchemistHunt);
+            MapLocationEntites.Add(alchemistGarden);
+            MapLocationEntites.Add(guardPost);
+            MapLocationEntites.Add(bridge);
+            MapLocationEntites.Add(spiderField);
+
         }
 
         ////////////// Methods to Search for Entites using IDs

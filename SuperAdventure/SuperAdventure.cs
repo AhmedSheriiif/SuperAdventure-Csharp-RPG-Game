@@ -14,11 +14,15 @@ namespace SuperAdventure
 {
     public partial class SuperAdventure : Form
     {
+        private Color MAIN_MAP_COLOR = Color.AliceBlue;
+        private Color CURRENT_POSITION_MAP_COLOR = Color.DarkBlue;
+
         private Player _player;
+
         public SuperAdventure()
         {
             InitializeComponent();
-
+            InitiateMap();
             _player = new Player(iD: 0, name: "Ahmed", maxHitPoints: 10, currentHitPoints: 10, gold: 20, experiencePoints: 0, level: 1);
 
             lblPlayerName.Text = _player.Name;
@@ -27,7 +31,7 @@ namespace SuperAdventure
             lblGold.Text = _player.Gold.ToString();
             lblExperience.Text = _player.ExperiencePoints.ToString();
             MoveTo(World.LocationByID(World.LOCATION_ID_HOME));
-            
+
         }
 
         private void btnNorth_Click(object sender, EventArgs e)
@@ -50,6 +54,18 @@ namespace SuperAdventure
         }
 
 
+        private void InitiateMap()
+        {
+            foreach (var entity in World.MapLocationEntites)
+            {
+                Button btn = new Button();
+                btn.BackColor = MAIN_MAP_COLOR;
+                btn.Name = "btn" + World.LocationByID(entity.LocationID).Name;
+                btn.Dock = DockStyle.Fill;
+                btn.Text = World.LocationByID(entity.LocationID).Name;
+                tlpMapPanel.Controls.Add(btn, entity.LocationX, entity.LocationY);
+            }
+        }
 
         private void MoveTo(Location location)
         {
@@ -60,7 +76,7 @@ namespace SuperAdventure
             {
                 UpdateCurrentLocation(location);
             }
-            else if(MovementResult == 1)
+            else if (MovementResult == 1)
             {
                 rtbMessages.Text += "There is no location there" + Environment.NewLine;
             }
@@ -70,9 +86,26 @@ namespace SuperAdventure
             }
             else if (MovementResult == 3)
             {
-                rtbMessages.Text += "Sorry, quest " + location.QuestAvailable.Name + " is required to enter this location" + Environment.NewLine;
+                SolveQuest(location.QuestAvailable);
             }
 
+        }
+
+        private void SolveQuest(Quest quest)
+        {
+            int QuestCompletionResult = QuestCompleting.CompleteTheQuest(_player, quest);
+            if (QuestCompletionResult == 0)
+            {
+                rtbMessages.Text += "Quest " + quest.Name + " Completed" + Environment.NewLine;
+            }
+            else if (QuestCompletionResult == 1)
+            {
+                rtbMessages.Text += "Quest " + quest.Name + " is already Completed" + Environment.NewLine;
+            }
+            else if (QuestCompletionResult == 2)
+            {
+                rtbMessages.Text += "Sorry, you don't have enought items to Complete this Quest, try Collecting some first" + Environment.NewLine;
+            }
         }
 
         private void UpdateCurrentLocation(Location location)
@@ -82,10 +115,28 @@ namespace SuperAdventure
             UpdateLocationsRichTextBox();
 
             // Show - Hide Moving Buttons
-            btnNorth.Visible = (location.LocationToNorth != null);
-            btnSouth.Visible = (location.LocationToSouth != null);
-            btnEast.Visible = (location.LocationToEast != null);
-            btnWest.Visible = (location.LocationToWest != null);
+            btnNorth.Enabled = (location.LocationToNorth != null);
+            btnSouth.Enabled = (location.LocationToSouth != null);
+            btnEast.Enabled = (location.LocationToEast != null);
+            btnWest.Enabled = (location.LocationToWest != null);
+
+            // Update MapEntityLocation Colors
+            UpdatePlayerPositionImage(location);
+        }
+
+        private void UpdatePlayerPositionImage(Location location)
+        {
+            foreach (Control ctrl in tlpMapPanel.Controls)
+            {
+                if (ctrl.Name == "btn" + location.Name)
+                {
+                    ctrl.BackColor = CURRENT_POSITION_MAP_COLOR;
+                }
+                else
+                {
+                    ctrl.BackColor = MAIN_MAP_COLOR;
+                }
+            }
         }
 
         private void UpdateLocationsRichTextBox()
@@ -95,11 +146,11 @@ namespace SuperAdventure
             rtbLocations.Text += "----------------------------------------" + Environment.NewLine;
             rtbLocations.Text += "Name: " + _player.CurrentLocation.Name + Environment.NewLine;
             rtbLocations.Text += "Description: " + _player.CurrentLocation.Description + Environment.NewLine;
-            
-            if(_player.CurrentLocation.QuestAvailable != null)
+
+            if (_player.CurrentLocation.QuestAvailable != null)
             {
                 rtbLocations.Text += "Quest: " + _player.CurrentLocation.QuestAvailable.Name + Environment.NewLine;
-                if(_player.CurrentLocation.QuestAvailable.Completed == true)
+                if (_player.CurrentLocation.QuestAvailable.Completed == true)
                 {
                     rtbLocations.Text += "Status: Completed" + Environment.NewLine;
                 }
@@ -107,7 +158,7 @@ namespace SuperAdventure
                 {
                     rtbLocations.Text += "Status: Not Completed" + Environment.NewLine;
                     rtbLocations.Text += "Items Required for this Quest:" + Environment.NewLine;
-                    foreach(var entry in _player.CurrentLocation.QuestAvailable.RequiredItemsToComplete)
+                    foreach (var entry in _player.CurrentLocation.QuestAvailable.RequiredItemsToComplete)
                     {
                         rtbLocations.Text += entry.Key.Name + ": " + entry.Value + Environment.NewLine;
                     }
@@ -117,8 +168,6 @@ namespace SuperAdventure
             {
                 rtbLocations.Text += "Quest: No Quests Available" + Environment.NewLine;
             }
-
-            rtbLocations.ScrollToCaret();
         }
 
         private void rtbMessages_TextChanged(object sender, EventArgs e)

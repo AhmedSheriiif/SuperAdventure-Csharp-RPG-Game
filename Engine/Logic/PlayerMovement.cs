@@ -10,21 +10,21 @@ namespace Engine.Logic
 {
     public static class PlayerMovement
     {
-        private static Player CurrentPlayer;
-        private static Location RequiredLocation;
+        private static Player _currentPlayer;
+        private static Location _requiredLocation;
 
 
         // Method to Initiate Movement
         private static void InitiateMovementVariables(Player player, Location location)
         {
-            CurrentPlayer = player;
-            RequiredLocation = location;
+            _currentPlayer = player;
+            _requiredLocation = location;
         }
 
         // Method to Check if Location is Available
         private static bool IsLocationAvaliable()
         {
-            if (RequiredLocation == null)
+            if (_requiredLocation == null)
                 return false;
 
             return true;
@@ -34,12 +34,12 @@ namespace Engine.Logic
         private static bool DoesPlayerHaveRequiredItem()
         {
             // Location Requires items to Enter
-            if (RequiredLocation.ItemRequiredToEnter != null)
+            if (_requiredLocation.ItemRequiredToEnter != null)
             {
                 bool itemFound = false;
-                foreach (Item item in CurrentPlayer.InventoryItems.Keys)
+                foreach (Item item in _currentPlayer.InventoryItems.Keys)
                 {
-                    if ((RequiredLocation.ItemRequiredToEnter.ID == item.ID) && (CurrentPlayer.InventoryItems[item] > 0))
+                    if ((_requiredLocation.ItemRequiredToEnter.ID == item.ID) && (_currentPlayer.InventoryItems[item] > 0))
                     {
                         itemFound = true;
                     }
@@ -55,10 +55,10 @@ namespace Engine.Logic
         private static bool IsQuestCompleted()
         {
             // Check if there is a Quest
-            if(RequiredLocation.QuestAvailable != null)
+            if(_requiredLocation.QuestAvailable != null)
             {
                 // Check if it's not completed yet
-                if(RequiredLocation.QuestAvailable.Completed == false)
+                if(_requiredLocation.QuestAvailable.Completed == false)
                 {
                     return false;
                 }

@@ -51,6 +51,7 @@
             this.rtbMessages = new System.Windows.Forms.RichTextBox();
             this.dgvQuests = new System.Windows.Forms.DataGridView();
             this.dgvInventory = new System.Windows.Forms.DataGridView();
+            this.tlpMapPanel = new System.Windows.Forms.TableLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.dgvQuests)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvInventory)).BeginInit();
             this.SuspendLayout();
@@ -250,20 +251,20 @@
             // rtbLocations
             // 
             this.rtbLocations.Font = new System.Drawing.Font("Cairo", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rtbLocations.Location = new System.Drawing.Point(680, 9);
+            this.rtbLocations.Location = new System.Drawing.Point(907, 9);
             this.rtbLocations.Name = "rtbLocations";
             this.rtbLocations.ReadOnly = true;
-            this.rtbLocations.Size = new System.Drawing.Size(654, 203);
+            this.rtbLocations.Size = new System.Drawing.Size(427, 203);
             this.rtbLocations.TabIndex = 21;
             this.rtbLocations.Text = "";
             // 
             // rtbMessages
             // 
             this.rtbMessages.Font = new System.Drawing.Font("Cairo", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rtbMessages.Location = new System.Drawing.Point(680, 231);
+            this.rtbMessages.Location = new System.Drawing.Point(907, 231);
             this.rtbMessages.Name = "rtbMessages";
             this.rtbMessages.ReadOnly = true;
-            this.rtbMessages.Size = new System.Drawing.Size(654, 271);
+            this.rtbMessages.Size = new System.Drawing.Size(427, 271);
             this.rtbMessages.TabIndex = 22;
             this.rtbMessages.Text = "";
             this.rtbMessages.TextChanged += new System.EventHandler(this.rtbMessages_TextChanged);
@@ -275,12 +276,12 @@
             this.dgvQuests.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvQuests.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvQuests.Enabled = false;
-            this.dgvQuests.Location = new System.Drawing.Point(266, 12);
+            this.dgvQuests.Location = new System.Drawing.Point(556, 12);
             this.dgvQuests.MultiSelect = false;
             this.dgvQuests.Name = "dgvQuests";
             this.dgvQuests.ReadOnly = true;
             this.dgvQuests.RowHeadersVisible = false;
-            this.dgvQuests.Size = new System.Drawing.Size(399, 200);
+            this.dgvQuests.Size = new System.Drawing.Size(345, 200);
             this.dgvQuests.TabIndex = 23;
             // 
             // dgvInventory
@@ -290,19 +291,40 @@
             this.dgvInventory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvInventory.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvInventory.Enabled = false;
-            this.dgvInventory.Location = new System.Drawing.Point(266, 231);
+            this.dgvInventory.Location = new System.Drawing.Point(556, 231);
             this.dgvInventory.MultiSelect = false;
             this.dgvInventory.Name = "dgvInventory";
             this.dgvInventory.ReadOnly = true;
             this.dgvInventory.RowHeadersVisible = false;
-            this.dgvInventory.Size = new System.Drawing.Size(399, 271);
+            this.dgvInventory.Size = new System.Drawing.Size(345, 271);
             this.dgvInventory.TabIndex = 24;
+            // 
+            // tlpMapPanel
+            // 
+            this.tlpMapPanel.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.tlpMapPanel.ColumnCount = 6;
+            this.tlpMapPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tlpMapPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tlpMapPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tlpMapPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tlpMapPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tlpMapPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tlpMapPanel.Location = new System.Drawing.Point(12, 231);
+            this.tlpMapPanel.Name = "tlpMapPanel";
+            this.tlpMapPanel.RowCount = 4;
+            this.tlpMapPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tlpMapPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tlpMapPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tlpMapPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tlpMapPanel.Size = new System.Drawing.Size(538, 271);
+            this.tlpMapPanel.TabIndex = 25;
             // 
             // SuperAdventure
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1354, 651);
+            this.Controls.Add(this.tlpMapPanel);
             this.Controls.Add(this.dgvInventory);
             this.Controls.Add(this.dgvQuests);
             this.Controls.Add(this.rtbMessages);
@@ -360,6 +382,7 @@
         private System.Windows.Forms.RichTextBox rtbMessages;
         private System.Windows.Forms.DataGridView dgvQuests;
         private System.Windows.Forms.DataGridView dgvInventory;
+        private System.Windows.Forms.TableLayoutPanel tlpMapPanel;
     }
 }
 

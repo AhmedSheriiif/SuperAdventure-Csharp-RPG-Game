@@ -16,7 +16,7 @@ namespace Engine
         public int RewardGold { get; set; }
         public Item RewardItem { get; set; }
         public bool Completed { get; set; }
-        public Dictionary<Item, int> RequiredItemsToComplete { get; set; } // Describes the Required Items to Complete the Quest {ItemName: Quantity}
+        public Dictionary<int, int> RequiredItemsToComplete { get; set; } // Describes the Required Items to Complete the Quest {ItemNameID: Quantity}
 
         public Quest(int iD, string name, string description, int rewardExperiencePoints, int rewardGold, Item rewardItem = null)
         {
@@ -27,12 +27,12 @@ namespace Engine
             RewardGold = rewardGold;
             RewardItem = rewardItem;
             Completed = false;
-            RequiredItemsToComplete = new Dictionary<Item, int>();
+            RequiredItemsToComplete = new Dictionary<int, int>();
         }
 
-        public void AddRequiredItemToComplete(Item item, int quantity)
+        public void AddRequiredItemToComplete(int itemID, int quantity)
         {
-            RequiredItemsToComplete[item] = quantity;
+            RequiredItemsToComplete[itemID] = quantity;
         }
     }
 }
