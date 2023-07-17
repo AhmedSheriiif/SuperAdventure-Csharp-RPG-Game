@@ -19,7 +19,7 @@ namespace Engine
         public Dictionary<Item, int> LootItems { get; set; } // Items Dropped from Monster and Percentage i.e : {ItemName: 0.9}  this means that the item may drop at 90%
 
         public Monster() { }
-        public Monster(string iD, string name, int currentHitPoints, int maxHitPoints, int rewardExperiencePoints, int rewardGold, int maxDamage) : base(iD, name, currentHitPoints, maxHitPoints)
+        public Monster(int iD, string name, int currentHitPoints, int maxHitPoints, int rewardExperiencePoints, int rewardGold, int maxDamage) : base(iD, name, currentHitPoints, maxHitPoints)
         {
             RewardExperiencePoints = rewardExperiencePoints;
             RewardGold = rewardGold;

@@ -9,7 +9,7 @@ namespace Engine
 {
     public class Location : IEntity
     {
-        public string ID { get; set; }
+        public int ID { get; set; }
 
         public string Name { get; set; }
         public string Description { get; set; }
@@ -24,7 +24,7 @@ namespace Engine
 
         public Location() { }
 
-        public Location(string iD, string name, string description, Item itemRequired = null, Monster monsterLivingHere = null, Quest questAvailable = null)
+        public Location(int iD, string name, string description, Item itemRequired = null, Monster monsterLivingHere = null, Quest questAvailable = null)
         {
             ID = iD;
             Name = name;

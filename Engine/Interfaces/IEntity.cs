@@ -8,7 +8,7 @@ namespace Engine
 {
     internal interface IEntity
     {
-        string ID { get; }
+        int ID { get; }
         string Name { get; }
     }
 }

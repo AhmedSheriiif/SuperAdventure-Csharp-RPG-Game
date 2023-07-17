@@ -8,14 +8,14 @@ namespace Engine.Interfaces
 {
     public class Item : IEntity
     {
-        public string ID { get; set; }
+        public int ID { get; set; }
         public string Name { get; set; }
         public string NamePlural { get; set; }
         public string Description { get; set; }
 
         public Item() { }
 
-        public Item(string iD, string name, string namePlural = null, string description = null)
+        public Item(int iD, string name, string namePlural = null, string description = null)
         {
             ID = iD;
             Name = name;
