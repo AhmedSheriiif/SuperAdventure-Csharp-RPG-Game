@@ -42,11 +42,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HealingPotion.cs" />
+    <Compile Include="HelperClasses\ComplexRandomGenerator.cs" />
     <Compile Include="Interfaces\IEntity.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="LivingCreature.cs" />
     <Compile Include="Interfaces\IReward.cs" />
     <Compile Include="Location.cs" />
+    <Compile Include="Logic\PlayerMovement.cs" />
     <Compile Include="Monster.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
