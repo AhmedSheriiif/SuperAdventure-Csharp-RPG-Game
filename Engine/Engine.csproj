@@ -48,6 +48,7 @@
     <Compile Include="GameEntities\LivingCreature.cs" />
     <Compile Include="Interfaces\IReward.cs" />
     <Compile Include="GameEntities\Location.cs" />
+    <Compile Include="Logic\MonsterFighting.cs" />
     <Compile Include="Logic\PlayerMovement.cs" />
     <Compile Include="GameEntities\Monster.cs" />
     <Compile Include="GameEntities\Player.cs" />

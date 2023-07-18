@@ -11,8 +11,12 @@ namespace Engine
         public int ID { get; set; }
         public string Name { get; set; }
 
-        public int CurrentHitPoints { get; }
-        public int MaxHitPoints { get; }
+        public int CurrentHitPoints { get; set; }
+        public int MaxHitPoints { get; set; }
+
+        public int LastDamageTaken { get; set; }
+
+        public bool Alive { get; set; }
 
         public LivingCreature() { }
         public LivingCreature(int iD, string name, int currentHitPoints, int maxHitPoints)
@@ -21,6 +25,8 @@ namespace Engine
             Name = name;
             CurrentHitPoints = currentHitPoints;
             MaxHitPoints = maxHitPoints;
+            LastDamageTaken = 0;
+            Alive = true;
         }
     }
 }

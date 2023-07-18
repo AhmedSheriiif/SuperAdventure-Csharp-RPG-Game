@@ -21,6 +21,8 @@ namespace Engine.Logic
             _requiredLocation = location;
         }
 
+       
+
         // Method to Check if Location is Available
         private static bool IsLocationAvaliable()
         {
@@ -70,7 +72,6 @@ namespace Engine.Logic
 
         private static int MoveToMessageNumber()
         {
-
             if (!IsLocationAvaliable()) return 1;
             if (!DoesPlayerHaveRequiredItem()) return 2;
             if (!IsQuestCompleted()) return 3;

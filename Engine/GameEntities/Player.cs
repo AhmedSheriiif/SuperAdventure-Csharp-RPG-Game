@@ -34,5 +34,25 @@ namespace Engine
                 InventoryItems.Add(itemID, 1);
             }
         }
+
+        public void UseItem(int itemID)
+        {
+            
+        }
+
+        public void UseHealingPotion(int itemID)
+        {
+            if (InventoryItems.ContainsKey(itemID))
+            {
+                InventoryItems[itemID] = InventoryItems[itemID] - 1;
+
+                HealingPotion currentPotion = (HealingPotion)World.ItemByID(itemID);
+                CurrentHitPoints += currentPotion.AmountToHeal;
+
+                if(CurrentHitPoints > MaxHitPoints)
+                    CurrentHitPoints = MaxHitPoints;
+            }
+
+        }
     }
 }

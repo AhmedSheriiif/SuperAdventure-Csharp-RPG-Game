@@ -49,10 +49,11 @@
             this.btnEast = new System.Windows.Forms.Button();
             this.rtbLocations = new System.Windows.Forms.RichTextBox();
             this.rtbMessages = new System.Windows.Forms.RichTextBox();
-            this.dgvQuests = new System.Windows.Forms.DataGridView();
             this.dgvInventory = new System.Windows.Forms.DataGridView();
             this.tlpMapPanel = new System.Windows.Forms.TableLayoutPanel();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvQuests)).BeginInit();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.rtbMonster = new System.Windows.Forms.RichTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvInventory)).BeginInit();
             this.SuspendLayout();
             // 
@@ -160,7 +161,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Cairo", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(1115, 521);
+            this.label5.Location = new System.Drawing.Point(1044, 521);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(86, 24);
             this.label5.TabIndex = 11;
@@ -193,6 +194,7 @@
             this.btnUseWeapon.TabIndex = 14;
             this.btnUseWeapon.Text = "Use";
             this.btnUseWeapon.UseVisualStyleBackColor = true;
+            this.btnUseWeapon.Click += new System.EventHandler(this.btnUseWeapon_Click);
             // 
             // btnUsePotion
             // 
@@ -203,11 +205,12 @@
             this.btnUsePotion.TabIndex = 15;
             this.btnUsePotion.Text = "Use";
             this.btnUsePotion.UseVisualStyleBackColor = true;
+            this.btnUsePotion.Click += new System.EventHandler(this.btnUsePotion_Click);
             // 
             // btnWest
             // 
             this.btnWest.Font = new System.Drawing.Font("Cairo", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnWest.Location = new System.Drawing.Point(12, 567);
+            this.btnWest.Location = new System.Drawing.Point(530, 559);
             this.btnWest.Name = "btnWest";
             this.btnWest.Size = new System.Drawing.Size(65, 37);
             this.btnWest.TabIndex = 17;
@@ -218,7 +221,7 @@
             // btnNorth
             // 
             this.btnNorth.Font = new System.Drawing.Font("Cairo", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnNorth.Location = new System.Drawing.Point(83, 534);
+            this.btnNorth.Location = new System.Drawing.Point(601, 526);
             this.btnNorth.Name = "btnNorth";
             this.btnNorth.Size = new System.Drawing.Size(65, 37);
             this.btnNorth.TabIndex = 18;
@@ -229,7 +232,7 @@
             // btnSouth
             // 
             this.btnSouth.Font = new System.Drawing.Font("Cairo", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSouth.Location = new System.Drawing.Point(83, 599);
+            this.btnSouth.Location = new System.Drawing.Point(601, 591);
             this.btnSouth.Name = "btnSouth";
             this.btnSouth.Size = new System.Drawing.Size(65, 37);
             this.btnSouth.TabIndex = 19;
@@ -240,7 +243,7 @@
             // btnEast
             // 
             this.btnEast.Font = new System.Drawing.Font("Cairo", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEast.Location = new System.Drawing.Point(154, 567);
+            this.btnEast.Location = new System.Drawing.Point(672, 559);
             this.btnEast.Name = "btnEast";
             this.btnEast.Size = new System.Drawing.Size(65, 37);
             this.btnEast.TabIndex = 20;
@@ -269,21 +272,6 @@
             this.rtbMessages.Text = "";
             this.rtbMessages.TextChanged += new System.EventHandler(this.rtbMessages_TextChanged);
             // 
-            // dgvQuests
-            // 
-            this.dgvQuests.AllowUserToAddRows = false;
-            this.dgvQuests.AllowUserToDeleteRows = false;
-            this.dgvQuests.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvQuests.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dgvQuests.Enabled = false;
-            this.dgvQuests.Location = new System.Drawing.Point(556, 12);
-            this.dgvQuests.MultiSelect = false;
-            this.dgvQuests.Name = "dgvQuests";
-            this.dgvQuests.ReadOnly = true;
-            this.dgvQuests.RowHeadersVisible = false;
-            this.dgvQuests.Size = new System.Drawing.Size(345, 200);
-            this.dgvQuests.TabIndex = 23;
-            // 
             // dgvInventory
             // 
             this.dgvInventory.AllowUserToAddRows = false;
@@ -291,12 +279,12 @@
             this.dgvInventory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvInventory.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvInventory.Enabled = false;
-            this.dgvInventory.Location = new System.Drawing.Point(556, 231);
+            this.dgvInventory.Location = new System.Drawing.Point(363, 9);
             this.dgvInventory.MultiSelect = false;
             this.dgvInventory.Name = "dgvInventory";
             this.dgvInventory.ReadOnly = true;
             this.dgvInventory.RowHeadersVisible = false;
-            this.dgvInventory.Size = new System.Drawing.Size(345, 271);
+            this.dgvInventory.Size = new System.Drawing.Size(300, 203);
             this.dgvInventory.TabIndex = 24;
             // 
             // tlpMapPanel
@@ -309,24 +297,56 @@
             this.tlpMapPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
             this.tlpMapPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
             this.tlpMapPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tlpMapPanel.Location = new System.Drawing.Point(12, 231);
+            this.tlpMapPanel.Location = new System.Drawing.Point(363, 231);
             this.tlpMapPanel.Name = "tlpMapPanel";
             this.tlpMapPanel.RowCount = 4;
             this.tlpMapPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tlpMapPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tlpMapPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tlpMapPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tlpMapPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 26.56827F));
+            this.tlpMapPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 23.98524F));
             this.tlpMapPanel.Size = new System.Drawing.Size(538, 271);
             this.tlpMapPanel.TabIndex = 25;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Cairo", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(1044, 556);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(66, 24);
+            this.label7.TabIndex = 26;
+            this.label7.Text = "Weapons:";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Cairo", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(1044, 604);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(56, 24);
+            this.label8.TabIndex = 27;
+            this.label8.Text = "Potions:";
+            // 
+            // rtbMonster
+            // 
+            this.rtbMonster.Font = new System.Drawing.Font("Cairo", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rtbMonster.Location = new System.Drawing.Point(672, 9);
+            this.rtbMonster.Name = "rtbMonster";
+            this.rtbMonster.ReadOnly = true;
+            this.rtbMonster.Size = new System.Drawing.Size(229, 203);
+            this.rtbMonster.TabIndex = 28;
+            this.rtbMonster.Text = "";
             // 
             // SuperAdventure
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1354, 651);
+            this.Controls.Add(this.rtbMonster);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.tlpMapPanel);
             this.Controls.Add(this.dgvInventory);
-            this.Controls.Add(this.dgvQuests);
             this.Controls.Add(this.rtbMessages);
             this.Controls.Add(this.rtbLocations);
             this.Controls.Add(this.btnEast);
@@ -350,7 +370,6 @@
             this.Controls.Add(this.label1);
             this.Name = "SuperAdventure";
             this.Text = "My Game";
-            ((System.ComponentModel.ISupportInitialize)(this.dgvQuests)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvInventory)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -380,9 +399,11 @@
         private System.Windows.Forms.Button btnEast;
         private System.Windows.Forms.RichTextBox rtbLocations;
         private System.Windows.Forms.RichTextBox rtbMessages;
-        private System.Windows.Forms.DataGridView dgvQuests;
         private System.Windows.Forms.DataGridView dgvInventory;
         private System.Windows.Forms.TableLayoutPanel tlpMapPanel;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.RichTextBox rtbMonster;
     }
 }
 
