@@ -54,6 +54,9 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.rtbMonster = new System.Windows.Forms.RichTextBox();
+            this.btnSaveGame = new System.Windows.Forms.Button();
+            this.btnLoadGame = new System.Windows.Forms.Button();
+            this.btnRestart = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvInventory)).BeginInit();
             this.SuspendLayout();
             // 
@@ -337,11 +340,47 @@
             this.rtbMonster.TabIndex = 28;
             this.rtbMonster.Text = "";
             // 
+            // btnSaveGame
+            // 
+            this.btnSaveGame.Font = new System.Drawing.Font("Cairo", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSaveGame.Location = new System.Drawing.Point(12, 598);
+            this.btnSaveGame.Name = "btnSaveGame";
+            this.btnSaveGame.Size = new System.Drawing.Size(128, 37);
+            this.btnSaveGame.TabIndex = 29;
+            this.btnSaveGame.Text = "Save Game";
+            this.btnSaveGame.UseVisualStyleBackColor = true;
+            this.btnSaveGame.Click += new System.EventHandler(this.btnSaveGame_Click);
+            // 
+            // btnLoadGame
+            // 
+            this.btnLoadGame.Font = new System.Drawing.Font("Cairo", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLoadGame.Location = new System.Drawing.Point(146, 601);
+            this.btnLoadGame.Name = "btnLoadGame";
+            this.btnLoadGame.Size = new System.Drawing.Size(128, 37);
+            this.btnLoadGame.TabIndex = 30;
+            this.btnLoadGame.Text = "Load Game";
+            this.btnLoadGame.UseVisualStyleBackColor = true;
+            this.btnLoadGame.Click += new System.EventHandler(this.btnLoadGame_Click);
+            // 
+            // btnRestart
+            // 
+            this.btnRestart.Font = new System.Drawing.Font("Cairo", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRestart.Location = new System.Drawing.Point(280, 601);
+            this.btnRestart.Name = "btnRestart";
+            this.btnRestart.Size = new System.Drawing.Size(128, 37);
+            this.btnRestart.TabIndex = 31;
+            this.btnRestart.Text = "Restart Game";
+            this.btnRestart.UseVisualStyleBackColor = true;
+            this.btnRestart.Click += new System.EventHandler(this.btnRestart_Click);
+            // 
             // SuperAdventure
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1354, 651);
+            this.Controls.Add(this.btnRestart);
+            this.Controls.Add(this.btnLoadGame);
+            this.Controls.Add(this.btnSaveGame);
             this.Controls.Add(this.rtbMonster);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
@@ -370,6 +409,7 @@
             this.Controls.Add(this.label1);
             this.Name = "SuperAdventure";
             this.Text = "My Game";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SuperAdventure_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.dgvInventory)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -404,6 +444,9 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.RichTextBox rtbMonster;
+        private System.Windows.Forms.Button btnSaveGame;
+        private System.Windows.Forms.Button btnLoadGame;
+        private System.Windows.Forms.Button btnRestart;
     }
 }
 

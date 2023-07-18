@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+
 using Engine;
 using Engine.Logic;
 
@@ -38,24 +39,24 @@ namespace SuperAdventure
 
         private void btnNorth_Click(object sender, EventArgs e)
         {
-            MoveTo(_player.CurrentLocation.LocationToNorth);
+            MoveTo(World.LocationByID(_player.CurrentLocationID).LocationToNorth);
             UpdateUI();
         }
         private void btnSouth_Click(object sender, EventArgs e)
         {
-            MoveTo(_player.CurrentLocation.LocationToSouth);
+            MoveTo(World.LocationByID(_player.CurrentLocationID).LocationToSouth);
             UpdateUI();
         }
 
         private void btnEast_Click(object sender, EventArgs e)
         {
-            MoveTo(_player.CurrentLocation.LocationToEast);
+            MoveTo(World.LocationByID(_player.CurrentLocationID).LocationToEast);
             UpdateUI();
         }
 
         private void btnWest_Click(object sender, EventArgs e)
         {
-            MoveTo(_player.CurrentLocation.LocationToWest);
+            MoveTo(World.LocationByID(_player.CurrentLocationID).LocationToWest);
             UpdateUI();
         }
 
@@ -102,9 +103,9 @@ namespace SuperAdventure
             rtbLocations.Clear();
             rtbMonster.Clear();
 
-            UpdateCurrentLocation(_player.CurrentLocation);
-            UpdatePlayerPositionColors(_player.CurrentLocation);
-            UpdateMonsterDetailsInCurrentLocation(_player.CurrentLocation);
+            UpdateCurrentLocation(World.LocationByID(_player.CurrentLocationID));
+            UpdatePlayerPositionColors(World.LocationByID(_player.CurrentLocationID));
+            UpdateMonsterDetailsInCurrentLocation(World.LocationByID(_player.CurrentLocationID));
             UpdateInvnetoryListInUI();
             UpdatePotionAndWeaponsInUI();
             UpdatePlayerDetailsInUI();
@@ -118,7 +119,7 @@ namespace SuperAdventure
             // Success Movement
             if (MovementResult == 0)
             {
-                _player.CurrentLocation = location;
+                _player.CurrentLocationID = location.ID;
             }
             else if (MovementResult == 1)
             {
@@ -145,7 +146,7 @@ namespace SuperAdventure
                 rtbMessages.Text += "You got " + quest.RewardExperiencePoints + " Experience Points" + Environment.NewLine;
                 rtbMessages.Text += "You got " + quest.RewardGold + " Gold" + Environment.NewLine;
                 rtbMessages.Text += "You got " + quest.RewardItem.Name + " and added to your inventory " + Environment.NewLine;
-                _player.CurrentLocation = location;
+                _player.CurrentLocationID = location.ID;
             }
             else if (QuestCompletionResult == 1)
             {
@@ -165,7 +166,7 @@ namespace SuperAdventure
 
         private void UpdateCurrentLocation(Location location)
         {
-            _player.CurrentLocation = location;
+            _player.CurrentLocationID = location.ID;
 
             // Show - Hide Moving Buttons
             btnNorth.Enabled = (location.LocationToNorth != null);
@@ -176,13 +177,13 @@ namespace SuperAdventure
             rtbLocations.Clear();
             rtbLocations.Text = "Current Location: " + Environment.NewLine;
             rtbLocations.Text += "----------------------------------------" + Environment.NewLine;
-            rtbLocations.Text += "Name: " + _player.CurrentLocation.Name + Environment.NewLine;
-            rtbLocations.Text += "Description: " + _player.CurrentLocation.Description + Environment.NewLine;
+            rtbLocations.Text += "Name: " + location.Name + Environment.NewLine;
+            rtbLocations.Text += "Description: " + location.Description + Environment.NewLine;
 
-            if (_player.CurrentLocation.QuestAvailable != null)
+            if (location.QuestAvailable != null)
             {
-                rtbLocations.Text += "Quest: " + _player.CurrentLocation.QuestAvailable.Name + Environment.NewLine;
-                if (_player.CurrentLocation.QuestAvailable.Completed == true)
+                rtbLocations.Text += "Quest: " + location.QuestAvailable.Name + Environment.NewLine;
+                if (location.QuestAvailable.Completed == true)
                 {
                     rtbLocations.Text += "Status: Completed" + Environment.NewLine;
                 }
@@ -190,7 +191,7 @@ namespace SuperAdventure
                 {
                     rtbLocations.Text += "Status: Not Completed" + Environment.NewLine;
                     rtbLocations.Text += "Items Required for this Quest:" + Environment.NewLine;
-                    foreach (var entry in _player.CurrentLocation.QuestAvailable.RequiredItemsToComplete)
+                    foreach (var entry in location.QuestAvailable.RequiredItemsToComplete)
                     {
                         rtbLocations.Text += World.ItemByID(entry.Key).Name + ": " + entry.Value + Environment.NewLine;
                     }
@@ -320,18 +321,17 @@ namespace SuperAdventure
 
         private void RestartGame()
         {
-            Application.Restart();
-            Environment.Exit(0);
+            _player = GameSavingAndLoading.LoadInitialState(_player.Name);
+            UpdateUI();
         }
 
         private void CloseGame()
         {
-            Application.Exit();
+            GameSavingAndLoading.SaveCurrentState(_player);
         }
 
 
        
-
         private void UseWeaponToAttackMonster(Weapon weapon)
         {
             int FightResult = MonsterFighting.FightMonster(_player, _currentFightingMonster, weapon);
@@ -376,7 +376,7 @@ namespace SuperAdventure
                         }
                         else
                         {
-                            CloseGame();
+                            Application.Exit();
                         }
                     }
                     else if(FightResult == 6)
@@ -393,6 +393,46 @@ namespace SuperAdventure
         {
             _player.UseHealingPotion(potion.ID);
             rtbMessages.Text += "you used " + potion.Name + " and got " + potion.AmountToHeal + " hit points" + Environment.NewLine;
+        }
+
+        private void btnSaveGame_Click(object sender, EventArgs e)
+        {
+           GameSavingAndLoading.SaveCurrentState(_player);
+        }
+
+        private void btnLoadGame_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog1 = new OpenFileDialog
+            {
+                InitialDirectory = "PlayersData",
+                Title = "Browse Players Data",
+
+                CheckFileExists = true,
+                CheckPathExists = true,
+
+                DefaultExt = "json",
+                Filter = "json files (*.json)|*.json",
+                FilterIndex = 2,
+                RestoreDirectory = true,
+                ReadOnlyChecked = true,
+                ShowReadOnly = true
+            };
+
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                _player = GameSavingAndLoading.LoadGame(openFileDialog1.FileName);
+                UpdateUI();
+            }
+        }
+
+        private void btnRestart_Click(object sender, EventArgs e)
+        {
+            RestartGame();
+        }
+
+        private void SuperAdventure_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            CloseGame();
         }
     }
 }

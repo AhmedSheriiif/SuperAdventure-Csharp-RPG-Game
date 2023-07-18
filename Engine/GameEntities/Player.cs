@@ -15,9 +15,14 @@ namespace Engine
         {
             get { return ((ExperiencePoints / 10) + 1); }
         }
-        public Location CurrentLocation { get; set; }
+        public int CurrentLocationID { get; set; }
 
         public Dictionary<int, int> InventoryItems { get; set; }   // Describes the Items in The Inventory of Player and their Quantity  {itemID: Quantity} mean it has 10 ItemName in inventory
+
+        public Player() 
+        {
+            InventoryItems = new Dictionary<int, int>();
+        }
         public Player(int iD, string name, int maxHitPoints, int currentHitPoints,  int gold, int experiencePoints) : base(iD, name, currentHitPoints, maxHitPoints)
         {
             Gold = gold;
