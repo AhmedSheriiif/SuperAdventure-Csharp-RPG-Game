@@ -30,7 +30,18 @@ namespace SuperAdventure
 
             MoveTo(World.LocationByID(World.LOCATION_ID_HOME));
             UpdateUI();
+            AddDataBindingToUI();
 
+        }
+
+        private void AddDataBindingToUI()
+        {
+            lblExperience.DataBindings.Add("Text", _player, "ExperiencePoints");
+            lblLevel.DataBindings.Add("Text", _player, "Level");
+            lblGold.DataBindings.Add("Text", _player, "Gold");
+            lblMaxHitPoints.DataBindings.Add("Text", _player, "MaxHitPoints");
+            lblHitPoints.DataBindings.Add("Text", _player, "CurrentHitPoints");
+            tbUsername.DataBindings.Add("Text", _player, "Name");
         }
 
         private void btnNorth_Click(object sender, EventArgs e)
@@ -104,8 +115,6 @@ namespace SuperAdventure
             UpdateInvnetoryListInUI();
             UpdateWeaponsItemsInUI();
             UpdatePotionsItemsInUI();
-            UpdatePlayerDetailsInUI();
-
         }
 
         private void MoveTo(Location location)
@@ -331,15 +340,7 @@ namespace SuperAdventure
 
 
 
-        private void UpdatePlayerDetailsInUI()
-        {
-            tbUsername.Text = _player.Name;
-            lblHitPoints.Text = _player.CurrentHitPoints.ToString();
-            lblLevel.Text = _player.Level.ToString();
-            lblGold.Text = _player.Gold.ToString();
-            lblExperience.Text = _player.ExperiencePoints.ToString();
-            lblMaxHitPoints.Text = _player.MaxHitPoints.ToString();
-        }
+       
 
         private void RestartGame()
         {

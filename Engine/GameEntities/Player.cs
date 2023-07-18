@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -9,15 +10,56 @@ namespace Engine
 {
     public class Player : LivingCreature
     {
-        public int Gold { get; set; }
-        public int ExperiencePoints { get; private set; }
+        private int _gold;
+        private int _experiencePoints;
+        private int _currentLocationID;
+        private int _currentWeaponID;
+
+        public int Gold 
+        {
+            get { return _gold; }
+            set
+            {
+                _gold = value;
+                OnPropertyChanged("Gold");
+            }
+        }
+
+        public int ExperiencePoints 
+        {
+            get { return _experiencePoints; }
+            private set
+            {
+                _experiencePoints = value;
+                OnPropertyChanged("ExperiencePoints");
+                OnPropertyChanged("Level");
+            }
+        }
         public int Level
         {
             get { return ((ExperiencePoints / 10) + 1); }
         }
-        public int CurrentLocationID { get; set; }
+        public int CurrentLocationID 
+        {
+            get { return _currentLocationID; }
+            set
+            {
+                _currentLocationID = value;
+                OnPropertyChanged("CurrentLocationID");
+            }
+        }
 
-        public int CurrentWeaponID { get; set; }
+        public int CurrentWeaponID
+        { 
+            get { return _currentWeaponID; }
+            set
+            {
+                _currentWeaponID = value;
+                OnPropertyChanged("CurrentWeaponID");
+            }
+        }
+
+
 
         public Dictionary<int, int> InventoryItems { get; set; }   // Describes the Items in The Inventory of Player and their Quantity  {itemID: Quantity} mean it has 10 ItemName in inventory
 
