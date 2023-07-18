@@ -52,7 +52,7 @@ namespace Engine.Logic
 
             // Get Rewards
             _player.Gold += _monster.RewardGold;
-            _player.ExperiencePoints += _monster.RewardExperiencePoints;
+            _player.AddExperiencePoints(_monster.RewardExperiencePoints);
 
           
             foreach (var item in _monster.LootItems)

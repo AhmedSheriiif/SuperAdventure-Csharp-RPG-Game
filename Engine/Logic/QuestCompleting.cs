@@ -50,7 +50,7 @@ namespace Engine.Logic
         private static void PlayerGetRewards()
         {
             _player.Gold += _currentQuest.RewardGold;
-            _player.ExperiencePoints += _currentQuest.RewardExperiencePoints;
+            _player.AddExperiencePoints(_currentQuest.RewardExperiencePoints);
             _player.AddItem(_currentQuest.RewardItem.ID);
         }
 

@@ -10,12 +10,14 @@ namespace Engine
     public class Player : LivingCreature
     {
         public int Gold { get; set; }
-        public int ExperiencePoints { get; set; }
+        public int ExperiencePoints { get; private set; }
         public int Level
         {
             get { return ((ExperiencePoints / 10) + 1); }
         }
         public int CurrentLocationID { get; set; }
+
+        public int CurrentWeaponID { get; set; }
 
         public Dictionary<int, int> InventoryItems { get; set; }   // Describes the Items in The Inventory of Player and their Quantity  {itemID: Quantity} mean it has 10 ItemName in inventory
 
@@ -28,6 +30,7 @@ namespace Engine
             Gold = gold;
             ExperiencePoints = experiencePoints;
             InventoryItems = new Dictionary<int, int>();
+            Alive = true;
         }
 
         public void AddItem(int itemID)
@@ -44,7 +47,10 @@ namespace Engine
 
         public void UseItem(int itemID)
         {
-            
+            if (InventoryItems.ContainsKey(itemID))
+            {
+                InventoryItems[itemID] = InventoryItems[itemID] - 1;
+            }
         }
 
         public void UseHealingPotion(int itemID)
@@ -60,6 +66,12 @@ namespace Engine
                     CurrentHitPoints = MaxHitPoints;
             }
 
+        }
+
+        public void AddExperiencePoints(int experiencePointsToAdd)
+        {
+            ExperiencePoints += experiencePointsToAdd;
+            MaxHitPoints = ((Level) * 10);
         }
     }
 }

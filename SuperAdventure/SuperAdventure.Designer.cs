@@ -36,7 +36,6 @@
             this.lblGold = new System.Windows.Forms.Label();
             this.lblExperience = new System.Windows.Forms.Label();
             this.lblLevel = new System.Windows.Forms.Label();
-            this.lblPlayerName = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.cboWeapons = new System.Windows.Forms.ComboBox();
@@ -57,6 +56,11 @@
             this.btnSaveGame = new System.Windows.Forms.Button();
             this.btnLoadGame = new System.Windows.Forms.Button();
             this.btnRestart = new System.Windows.Forms.Button();
+            this.btnChangeUsername = new System.Windows.Forms.Button();
+            this.tbUsername = new System.Windows.Forms.TextBox();
+            this.btnSaveUsername = new System.Windows.Forms.Button();
+            this.lblMaxHitPoints = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvInventory)).BeginInit();
             this.SuspendLayout();
             // 
@@ -64,7 +68,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Cairo", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(18, 39);
+            this.label1.Location = new System.Drawing.Point(18, 171);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(69, 24);
             this.label1.TabIndex = 0;
@@ -74,7 +78,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Cairo", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(18, 63);
+            this.label2.Location = new System.Drawing.Point(18, 195);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(38, 24);
             this.label2.TabIndex = 1;
@@ -84,7 +88,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Cairo", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(18, 87);
+            this.label3.Location = new System.Drawing.Point(18, 219);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(75, 24);
             this.label3.TabIndex = 2;
@@ -94,7 +98,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Cairo", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(18, 111);
+            this.label4.Location = new System.Drawing.Point(18, 243);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(42, 24);
             this.label4.TabIndex = 3;
@@ -104,7 +108,7 @@
             // 
             this.lblHitPoints.AutoSize = true;
             this.lblHitPoints.Font = new System.Drawing.Font("Cairo", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblHitPoints.Location = new System.Drawing.Point(106, 39);
+            this.lblHitPoints.Location = new System.Drawing.Point(134, 171);
             this.lblHitPoints.Name = "lblHitPoints";
             this.lblHitPoints.Size = new System.Drawing.Size(13, 24);
             this.lblHitPoints.TabIndex = 5;
@@ -114,7 +118,7 @@
             // 
             this.lblGold.AutoSize = true;
             this.lblGold.Font = new System.Drawing.Font("Cairo", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblGold.Location = new System.Drawing.Point(106, 63);
+            this.lblGold.Location = new System.Drawing.Point(134, 195);
             this.lblGold.Name = "lblGold";
             this.lblGold.Size = new System.Drawing.Size(13, 24);
             this.lblGold.TabIndex = 6;
@@ -124,7 +128,7 @@
             // 
             this.lblExperience.AutoSize = true;
             this.lblExperience.Font = new System.Drawing.Font("Cairo", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblExperience.Location = new System.Drawing.Point(106, 87);
+            this.lblExperience.Location = new System.Drawing.Point(134, 219);
             this.lblExperience.Name = "lblExperience";
             this.lblExperience.Size = new System.Drawing.Size(13, 24);
             this.lblExperience.TabIndex = 7;
@@ -134,27 +138,17 @@
             // 
             this.lblLevel.AutoSize = true;
             this.lblLevel.Font = new System.Drawing.Font("Cairo", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblLevel.Location = new System.Drawing.Point(106, 111);
+            this.lblLevel.Location = new System.Drawing.Point(134, 243);
             this.lblLevel.Name = "lblLevel";
             this.lblLevel.Size = new System.Drawing.Size(13, 24);
             this.lblLevel.TabIndex = 8;
             this.lblLevel.Text = " ";
             // 
-            // lblPlayerName
-            // 
-            this.lblPlayerName.AutoSize = true;
-            this.lblPlayerName.Font = new System.Drawing.Font("Cairo", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPlayerName.Location = new System.Drawing.Point(106, 9);
-            this.lblPlayerName.Name = "lblPlayerName";
-            this.lblPlayerName.Size = new System.Drawing.Size(13, 24);
-            this.lblPlayerName.TabIndex = 10;
-            this.lblPlayerName.Text = " ";
-            // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Cairo", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(18, 9);
+            this.label6.Location = new System.Drawing.Point(18, 31);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(49, 24);
             this.label6.TabIndex = 9;
@@ -178,6 +172,7 @@
             this.cboWeapons.Name = "cboWeapons";
             this.cboWeapons.Size = new System.Drawing.Size(121, 32);
             this.cboWeapons.TabIndex = 12;
+            this.cboWeapons.SelectedIndexChanged += new System.EventHandler(this.cboWeapons_SelectedIndexChanged);
             // 
             // cboPotions
             // 
@@ -373,11 +368,68 @@
             this.btnRestart.UseVisualStyleBackColor = true;
             this.btnRestart.Click += new System.EventHandler(this.btnRestart_Click);
             // 
+            // btnChangeUsername
+            // 
+            this.btnChangeUsername.Font = new System.Drawing.Font("Cairo", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnChangeUsername.Location = new System.Drawing.Point(201, 22);
+            this.btnChangeUsername.Name = "btnChangeUsername";
+            this.btnChangeUsername.Size = new System.Drawing.Size(125, 37);
+            this.btnChangeUsername.TabIndex = 32;
+            this.btnChangeUsername.Text = "Change Username";
+            this.btnChangeUsername.UseVisualStyleBackColor = true;
+            this.btnChangeUsername.Click += new System.EventHandler(this.btnChangeUsername_Click);
+            // 
+            // tbUsername
+            // 
+            this.tbUsername.Font = new System.Drawing.Font("Cairo", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbUsername.Location = new System.Drawing.Point(73, 25);
+            this.tbUsername.Name = "tbUsername";
+            this.tbUsername.ReadOnly = true;
+            this.tbUsername.Size = new System.Drawing.Size(122, 32);
+            this.tbUsername.TabIndex = 33;
+            // 
+            // btnSaveUsername
+            // 
+            this.btnSaveUsername.Font = new System.Drawing.Font("Cairo", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSaveUsername.Location = new System.Drawing.Point(201, 65);
+            this.btnSaveUsername.Name = "btnSaveUsername";
+            this.btnSaveUsername.Size = new System.Drawing.Size(128, 37);
+            this.btnSaveUsername.TabIndex = 34;
+            this.btnSaveUsername.Text = "Save Username";
+            this.btnSaveUsername.UseVisualStyleBackColor = true;
+            this.btnSaveUsername.Visible = false;
+            this.btnSaveUsername.Click += new System.EventHandler(this.btnSaveUsername_Click);
+            // 
+            // lblMaxHitPoints
+            // 
+            this.lblMaxHitPoints.AutoSize = true;
+            this.lblMaxHitPoints.Font = new System.Drawing.Font("Cairo", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMaxHitPoints.Location = new System.Drawing.Point(134, 147);
+            this.lblMaxHitPoints.Name = "lblMaxHitPoints";
+            this.lblMaxHitPoints.Size = new System.Drawing.Size(13, 24);
+            this.lblMaxHitPoints.TabIndex = 36;
+            this.lblMaxHitPoints.Text = " ";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Cairo", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(18, 147);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(93, 24);
+            this.label10.TabIndex = 35;
+            this.label10.Text = "Max HitPoints:";
+            // 
             // SuperAdventure
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1354, 651);
+            this.Controls.Add(this.lblMaxHitPoints);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.btnSaveUsername);
+            this.Controls.Add(this.tbUsername);
+            this.Controls.Add(this.btnChangeUsername);
             this.Controls.Add(this.btnRestart);
             this.Controls.Add(this.btnLoadGame);
             this.Controls.Add(this.btnSaveGame);
@@ -397,7 +449,6 @@
             this.Controls.Add(this.cboPotions);
             this.Controls.Add(this.cboWeapons);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.lblPlayerName);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.lblLevel);
             this.Controls.Add(this.lblExperience);
@@ -426,7 +477,6 @@
         private System.Windows.Forms.Label lblGold;
         private System.Windows.Forms.Label lblExperience;
         private System.Windows.Forms.Label lblLevel;
-        private System.Windows.Forms.Label lblPlayerName;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox cboWeapons;
@@ -447,6 +497,11 @@
         private System.Windows.Forms.Button btnSaveGame;
         private System.Windows.Forms.Button btnLoadGame;
         private System.Windows.Forms.Button btnRestart;
+        private System.Windows.Forms.Button btnChangeUsername;
+        private System.Windows.Forms.TextBox tbUsername;
+        private System.Windows.Forms.Button btnSaveUsername;
+        private System.Windows.Forms.Label lblMaxHitPoints;
+        private System.Windows.Forms.Label label10;
     }
 }
 

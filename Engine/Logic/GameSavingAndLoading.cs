@@ -18,9 +18,8 @@ namespace Engine.Logic
             _initialPlayer.Name = name;
             _initialPlayer.ID = 0;
             _initialPlayer.Gold = 50;
-            _initialPlayer.ExperiencePoints = 0;
-            _initialPlayer.MaxHitPoints = 30;
-            _initialPlayer.CurrentHitPoints = 30;
+            _initialPlayer.AddExperiencePoints(0);
+            _initialPlayer.CurrentHitPoints = _initialPlayer.MaxHitPoints;
             _initialPlayer.CurrentLocationID = World.LOCATION_ID_HOME;
             _initialPlayer.AddItem(World.ITEM_ID_SNAKE_FANG);
             _initialPlayer.AddItem(World.ITEM_ID_SNAKE_FANG);

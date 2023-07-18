@@ -26,14 +26,10 @@ namespace SuperAdventure
         {
             InitializeComponent();
             InitiateMap();
-            _player = new Player(iD: 0, name: "Ahmed", maxHitPoints: 10, currentHitPoints: 10, gold: 20, experiencePoints: 0);
-            _player.InventoryItems.Add(World.ITEM_ID_SNAKE_FANG, 3); // Adding 3 Snake Fangs for Testing.
-            _player.InventoryItems.Add(World.ITEM_ID_CLUB, 2);
+            _player = GameSavingAndLoading.LoadInitialState("Ahmed");
 
             MoveTo(World.LocationByID(World.LOCATION_ID_HOME));
             UpdateUI();
-
-          
 
         }
 
@@ -99,7 +95,6 @@ namespace SuperAdventure
         // This Method to Collect all UI Updating Methods in one method
         private void UpdateUI()
         {
-            //rtbMessages.Clear();
             rtbLocations.Clear();
             rtbMonster.Clear();
 
@@ -107,7 +102,8 @@ namespace SuperAdventure
             UpdatePlayerPositionColors(World.LocationByID(_player.CurrentLocationID));
             UpdateMonsterDetailsInCurrentLocation(World.LocationByID(_player.CurrentLocationID));
             UpdateInvnetoryListInUI();
-            UpdatePotionAndWeaponsInUI();
+            UpdateWeaponsItemsInUI();
+            UpdatePotionsItemsInUI();
             UpdatePlayerDetailsInUI();
 
         }
@@ -274,49 +270,75 @@ namespace SuperAdventure
         }
 
 
-        private void UpdateComboBoxesItemInUI_Helper<T>(ComboBox cbo, Button btnUse)
+        private void UpdateWeaponsItemsInUI()
         {
-            List<T> items = new List<T>();
-            foreach (var inventoryItem in _player.InventoryItems)
-            {
-                int itemID = inventoryItem.Key;
-                int quantity = inventoryItem.Value;
+            List<Weapon> weapons = _player.InventoryItems
+                .Where(inventoryItem => World.ItemByID(inventoryItem.Key) is Weapon && inventoryItem.Value > 0)
+                .Select(inventoryItem => (Weapon)World.ItemByID(inventoryItem.Key))
+                .ToList();
 
-                if (World.ItemByID(itemID) is T item && quantity > 0)
+            if (weapons.Count > 0)
+            {
+                cboWeapons.Visible = true;
+                btnUseWeapon.Visible = true;
+
+                // Remove Event before binding to avoid calling it when binding weapons
+                cboWeapons.SelectedIndexChanged -= cboWeapons_SelectedIndexChanged;
+                cboWeapons.DataSource = weapons;
+                cboWeapons.SelectedIndexChanged += cboWeapons_SelectedIndexChanged;
+
+                cboWeapons.DisplayMember = "Name";
+                cboWeapons.ValueMember = "ID";
+
+                if(_player.CurrentWeaponID > 0)
                 {
-                    items.Add(item);
+                    cboWeapons.SelectedIndex = weapons.FindIndex(weapon => weapon.ID == _player.CurrentWeaponID);
                 }
-            }
 
-            if(items.Count > 0)
-            {
-                cbo.Visible = true;
-                btnUse.Visible = true;
-                cbo.DataSource = items;
-                cbo.DisplayMember = "Name";
-                cbo.ValueMember = "ID";
-                cbo.SelectedIndex = 0;
+
             }
             else
             {
-                cbo.Visible = false;
-                btnUse.Visible = false;
+                cboWeapons.Visible = false;
+                btnUseWeapon.Visible = false;
             }
         }
 
-        private void UpdatePotionAndWeaponsInUI()
+        private void UpdatePotionsItemsInUI()
         {
-            UpdateComboBoxesItemInUI_Helper<Weapon>(cboWeapons, btnUseWeapon);
-            UpdateComboBoxesItemInUI_Helper<HealingPotion>(cboPotions, btnUsePotion);
+            List<HealingPotion> potions = _player.InventoryItems
+                .Where(inventoryItem => World.ItemByID(inventoryItem.Key) is HealingPotion && inventoryItem.Value > 0)
+                .Select(inventoryItem => (HealingPotion)World.ItemByID(inventoryItem.Key))
+                .ToList();
+
+            if (potions.Count > 0)
+            {
+
+                cboPotions.Visible = true;
+                btnUsePotion.Visible = true;
+
+                cboPotions.DataSource = potions;
+
+                cboPotions.DisplayMember = "Name";
+                cboPotions.ValueMember = "ID";
+            }
+            else
+            {
+                cboPotions.Visible = false;
+                btnUsePotion.Visible = false;
+            }
         }
+
+
 
         private void UpdatePlayerDetailsInUI()
         {
-            lblPlayerName.Text = _player.Name;
+            tbUsername.Text = _player.Name;
             lblHitPoints.Text = _player.CurrentHitPoints.ToString();
             lblLevel.Text = _player.Level.ToString();
             lblGold.Text = _player.Gold.ToString();
             lblExperience.Text = _player.ExperiencePoints.ToString();
+            lblMaxHitPoints.Text = _player.MaxHitPoints.ToString();
         }
 
         private void RestartGame()
@@ -433,6 +455,33 @@ namespace SuperAdventure
         private void SuperAdventure_FormClosing(object sender, FormClosingEventArgs e)
         {
             CloseGame();
+        }
+
+        private void cboWeapons_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(cboWeapons.SelectedIndex >= 0)
+                _player.CurrentWeaponID = ((Weapon)cboWeapons.SelectedItem).ID;
+        }
+
+        private void btnChangeUsername_Click(object sender, EventArgs e)
+        {
+            tbUsername.ReadOnly = false;
+            btnSaveUsername.Visible = true;
+            btnChangeUsername.Visible = false;
+        }
+
+        private void btnSaveUsername_Click(object sender, EventArgs e)
+        {
+            if (tbUsername.Text == "")
+                MessageBox.Show("Please, make sure you entered a name");
+            else
+            {
+                tbUsername.Text = tbUsername.Text.Trim();
+                tbUsername.ReadOnly = true;
+                btnChangeUsername.Visible = true;
+                btnSaveUsername.Visible = false;
+                _player.Name = tbUsername.Text;
+            }
         }
     }
 }
