@@ -85,7 +85,7 @@ namespace Engine
             snake.AddLootItem(ITEM_ID_SNAKESKIN, 75);
             snake.AddLootItem(ITEM_ID_HEALING_POTION, 90);
 
-            Monster giantSpider = new Monster(MONSTER_ID_GIANT_SPIDER, "Giant spider", 20, 5, 40, 10, 10);
+            Monster giantSpider = new Monster(MONSTER_ID_GIANT_SPIDER, "Giant spider", 50, 45, 40, 10, 10);
             giantSpider.AddLootItem(ITEM_ID_SPIDER_FANG, 75);
             giantSpider.AddLootItem(ITEM_ID_SPIDER_SILK, 25);
 
@@ -211,54 +211,22 @@ namespace Engine
         ////////////// Methods to Search for Entites using IDs
         public static Item ItemByID(int id)
         {
-            foreach (Item item in Items)
-            {
-                if (item.ID == id)
-                {
-                    return item;
-                }
-            }
-
-            return null;
+            return Items.FirstOrDefault(x => x.ID == id);
         }
 
         public static Monster MonsterByID(int id)
         {
-            foreach (Monster monster in Monsters)
-            {
-                if (monster.ID == id)
-                {
-                    return monster;
-                }
-            }
-
-            return null;
+            return Monsters.FirstOrDefault(x => x.ID == id);
         }
 
         public static Quest QuestByID(int id)
         {
-            foreach (Quest quest in Quests)
-            {
-                if (quest.ID == id)
-                {
-                    return quest;
-                }
-            }
-
-            return null;
+            return Quests.FirstOrDefault(x => x.ID == id);
         }
 
         public static Location LocationByID(int id)
         {
-            foreach (Location location in Locations)
-            {
-                if (location.ID == id)
-                {
-                    return location;
-                }
-            }
-
-            return null;
+            return Locations.FirstOrDefault(x => x.ID == id);
         }
     }
 }

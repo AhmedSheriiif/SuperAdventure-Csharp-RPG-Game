@@ -25,7 +25,7 @@ namespace SuperAdventure
         {
             InitializeComponent();
             InitiateMap();
-            _player = new Player(iD: 0, name: "Ahmed", maxHitPoints: 10, currentHitPoints: 10, gold: 20, experiencePoints: 0, level: 1);
+            _player = new Player(iD: 0, name: "Ahmed", maxHitPoints: 10, currentHitPoints: 10, gold: 20, experiencePoints: 0);
             _player.InventoryItems.Add(World.ITEM_ID_SNAKE_FANG, 3); // Adding 3 Snake Fangs for Testing.
             _player.InventoryItems.Add(World.ITEM_ID_CLUB, 2);
 
@@ -318,6 +318,16 @@ namespace SuperAdventure
             lblExperience.Text = _player.ExperiencePoints.ToString();
         }
 
+        private void RestartGame()
+        {
+            Application.Restart();
+            Environment.Exit(0);
+        }
+
+        private void CloseGame()
+        {
+            Application.Exit();
+        }
 
 
        
@@ -360,6 +370,14 @@ namespace SuperAdventure
                     if(FightResult == 5)
                     {
                         rtbMessages.Text += "You Are DEAD !! " + Environment.NewLine;
+                        if(MessageBox.Show("You are DEAD!! Restart?", "Game Over", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                        {
+                            RestartGame();
+                        }
+                        else
+                        {
+                            CloseGame();
+                        }
                     }
                     else if(FightResult == 6)
                     {

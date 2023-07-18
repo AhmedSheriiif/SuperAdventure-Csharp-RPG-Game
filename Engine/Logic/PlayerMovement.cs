@@ -38,16 +38,10 @@ namespace Engine.Logic
             // Location Requires items to Enter
             if (_requiredLocation.ItemRequiredToEnter != null)
             {
-                bool itemFound = false;
-                foreach (int itemID in _currentPlayer.InventoryItems.Keys)
-                {
-                    if ((_requiredLocation.ItemRequiredToEnter.ID == itemID) && (_currentPlayer.InventoryItems[itemID] > 0))
-                    {
-                        itemFound = true;
-                    }
-                }
-
-                return itemFound;
+                // Using LINQ: Search for item in Inventory
+                return _currentPlayer.InventoryItems
+                    .Where(entry => entry.Key == _requiredLocation.ItemRequiredToEnter.ID && entry.Value > 0)
+                    .Any();
             }
 
             return true;

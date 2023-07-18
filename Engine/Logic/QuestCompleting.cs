@@ -27,42 +27,24 @@ namespace Engine.Logic
 
         private static bool DoesPlayerHaveItemsToCompleteQuest()
         {
-            foreach(var itemEntry in _currentQuest.RequiredItemsToComplete)
-            {
-                int itemID = itemEntry.Key;
-                int itemAmount = itemEntry.Value;
-                bool PlayerHasEnoughtItems = false;
-
-                foreach(var inventoryItem in _player.InventoryItems)
-                {
-                    if(inventoryItem.Key == itemID && inventoryItem.Value >= itemAmount)
-                        PlayerHasEnoughtItems = true;
-                }
-                if (!PlayerHasEnoughtItems) return false;
-
-            }
-
-            return true;
+            return _currentQuest.RequiredItemsToComplete
+                 .All(questEntry => _player.InventoryItems.Any(inventoryItem =>
+                 inventoryItem.Key == questEntry.Key && inventoryItem.Value >= questEntry.Value));
         }
 
         private static void RemovePlayerItemsToCompleteQuest()
         {
-            // Remove Items from the Player
-            foreach (var itemEntry in _currentQuest.RequiredItemsToComplete)
+            // Using LINQ: 
+            _player.InventoryItems = _player.InventoryItems.Select(inventoryItem =>
             {
-                int itemID = itemEntry.Key;
-                int itemAmount = itemEntry.Value;
-
-                foreach (var inventoryItem in _player.InventoryItems)
+                if(_currentQuest.RequiredItemsToComplete.TryGetValue(inventoryItem.Key, out int itemAmount))
                 {
-                    if (inventoryItem.Key == itemID)
-                    {
-                        int updatedAmount = inventoryItem.Value - itemAmount;
-                        _player.InventoryItems[inventoryItem.Key] = updatedAmount;
-                        break;
-                    }
+                    int updatedAmount = inventoryItem.Value - itemAmount;
+                    return new KeyValuePair<int, int>(inventoryItem.Key, updatedAmount);
                 }
-            }
+                return inventoryItem;
+            }).ToDictionary(kv => kv.Key, kv => kv.Value);
+
         }
 
         private static void PlayerGetRewards()

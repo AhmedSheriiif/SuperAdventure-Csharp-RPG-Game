@@ -52,7 +52,9 @@ namespace Engine.Logic
 
             // Get Rewards
             _player.Gold += _monster.RewardGold;
-            _player.Level += _monster.RewardExperiencePoints;
+            _player.ExperiencePoints += _monster.RewardExperiencePoints;
+
+          
             foreach (var item in _monster.LootItems)
             {
                 if (ComplexRandomGenerator.NumberBetween(0, 100) <= item.Value)
