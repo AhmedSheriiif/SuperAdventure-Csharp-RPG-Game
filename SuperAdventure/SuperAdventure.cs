@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -22,16 +23,41 @@ namespace SuperAdventure
         private Player _player;
         private Monster _currentFightingMonster;
 
+        
+
         public SuperAdventure()
         {
             InitializeComponent();
             InitiateMap();
             _player = GameSavingAndLoading.LoadInitialState("Ahmed");
-
             MoveTo(World.LocationByID(World.LOCATION_ID_HOME));
+            UpdateInvnetoryListInUI();
             UpdateUI();
             AddDataBindingToUI();
+            AddEventSubscribers();
 
+        }
+
+        private void AddEventSubscribers()
+        {
+            _player.OnInventoryItemUsed += InventoryItemUsed;
+            _player.OnInventoryItemAdded += InventoryItemAdded;
+        }
+
+        private void InventoryItemAdded(int itemID)
+        {
+            UpdateInvnetoryListInUI();
+            UpdateWeaponsItemsInUI();
+            UpdatePotionsItemsInUI();
+            rtbMessages.Text += "You found a: " + World.ItemByID(itemID).Name + Environment.NewLine;
+        }
+
+        private void InventoryItemUsed(int itemID)
+        {
+            UpdateInvnetoryListInUI();
+            UpdateWeaponsItemsInUI();
+            UpdatePotionsItemsInUI();
+            rtbMessages.Text += "You used: " + World.ItemByID(itemID).Name + Environment.NewLine;
         }
 
         private void AddDataBindingToUI()
@@ -43,6 +69,8 @@ namespace SuperAdventure
             lblHitPoints.DataBindings.Add("Text", _player, "CurrentHitPoints");
             tbUsername.DataBindings.Add("Text", _player, "Name");
         }
+
+        
 
         private void btnNorth_Click(object sender, EventArgs e)
         {
@@ -112,7 +140,6 @@ namespace SuperAdventure
             UpdateCurrentLocation(World.LocationByID(_player.CurrentLocationID));
             UpdatePlayerPositionColors(World.LocationByID(_player.CurrentLocationID));
             UpdateMonsterDetailsInCurrentLocation(World.LocationByID(_player.CurrentLocationID));
-            UpdateInvnetoryListInUI();
             UpdateWeaponsItemsInUI();
             UpdatePotionsItemsInUI();
         }
@@ -150,7 +177,6 @@ namespace SuperAdventure
                 rtbMessages.Text += "Quest " + quest.Name + " Completed" + Environment.NewLine;
                 rtbMessages.Text += "You got " + quest.RewardExperiencePoints + " Experience Points" + Environment.NewLine;
                 rtbMessages.Text += "You got " + quest.RewardGold + " Gold" + Environment.NewLine;
-                rtbMessages.Text += "You got " + quest.RewardItem.Name + " and added to your inventory " + Environment.NewLine;
                 _player.CurrentLocationID = location.ID;
             }
             else if (QuestCompletionResult == 1)

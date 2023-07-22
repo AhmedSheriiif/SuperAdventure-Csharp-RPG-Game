@@ -59,7 +59,7 @@ namespace Engine.Logic
             {
                 if (ComplexRandomGenerator.NumberBetween(0, 100) <= item.Value)
                 {
-                    _player.AddItem(item.Key);
+                    _player.AddItemToInventory(item.Key);
                 }
             }
         }
@@ -80,7 +80,7 @@ namespace Engine.Logic
             // The Fight Begins
             int weaponDamage = ComplexRandomGenerator.NumberBetween(_weapon.MinimumDamage, _weapon.MaximumDamage);
 
-            _player.UseItem(_weapon.ID);
+            _player.UseItemFromInventory(_weapon.ID);
             _monster.CurrentHitPoints -= weaponDamage;
             _monster.LastDamageTaken = weaponDamage;
 

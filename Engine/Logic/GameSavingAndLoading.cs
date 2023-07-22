@@ -21,11 +21,11 @@ namespace Engine.Logic
             _initialPlayer.AddExperiencePoints(0);
             _initialPlayer.CurrentHitPoints = _initialPlayer.MaxHitPoints;
             _initialPlayer.CurrentLocationID = World.LOCATION_ID_HOME;
-            _initialPlayer.AddItem(World.ITEM_ID_SNAKE_FANG);
-            _initialPlayer.AddItem(World.ITEM_ID_SNAKE_FANG);
-            _initialPlayer.AddItem(World.ITEM_ID_SNAKE_FANG);
-            _initialPlayer.AddItem(World.ITEM_ID_CLUB);
-            _initialPlayer.AddItem(World.ITEM_ID_CLUB);
+            _initialPlayer.AddItemToInventory(World.ITEM_ID_SNAKE_FANG);
+            _initialPlayer.AddItemToInventory(World.ITEM_ID_SNAKE_FANG);
+            _initialPlayer.AddItemToInventory(World.ITEM_ID_SNAKE_FANG);
+            _initialPlayer.AddItemToInventory(World.ITEM_ID_CLUB);
+            _initialPlayer.AddItemToInventory(World.ITEM_ID_CLUB);
 
             string jsonFileName = name + ".json";
             Directory.CreateDirectory("PlayersData");
@@ -46,6 +46,7 @@ namespace Engine.Logic
                 string jsonFileName = "newPlayer" + ".json";
                 string data = File.ReadAllText(Path.Combine("PlayersData", jsonFileName));
                 player = JsonConvert.DeserializeObject<Player>(data);
+                
                 player.Name = name;
 
                 return player;

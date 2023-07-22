@@ -10,11 +10,19 @@ namespace Engine
 {
     public class Player : LivingCreature
     {
+        // Delegates and Events
+        public delegate void onInventoryItemsChangedHandler(int itemID);
+        public event onInventoryItemsChangedHandler OnInventoryItemAdded;
+        public event onInventoryItemsChangedHandler OnInventoryItemUsed;
+
+        // Fields
         private int _gold;
         private int _experiencePoints;
         private int _currentLocationID;
         private int _currentWeaponID;
+        private Dictionary<int, int> _inventoryItems;
 
+        // Properties
         public int Gold 
         {
             get { return _gold; }
@@ -39,6 +47,7 @@ namespace Engine
         {
             get { return ((ExperiencePoints / 10) + 1); }
         }
+
         public int CurrentLocationID 
         {
             get { return _currentLocationID; }
@@ -48,6 +57,8 @@ namespace Engine
                 OnPropertyChanged("CurrentLocationID");
             }
         }
+
+
 
         public int CurrentWeaponID
         { 
@@ -59,47 +70,52 @@ namespace Engine
             }
         }
 
+        public Dictionary<int, int> InventoryItems {
+            get { return _inventoryItems; }
+            set { _inventoryItems = value; }
+        }
 
-
-        public Dictionary<int, int> InventoryItems { get; set; }   // Describes the Items in The Inventory of Player and their Quantity  {itemID: Quantity} mean it has 10 ItemName in inventory
-
+        
         public Player() 
         {
-            InventoryItems = new Dictionary<int, int>();
+            _inventoryItems = new Dictionary<int, int>();
         }
-        public Player(int iD, string name, int maxHitPoints, int currentHitPoints,  int gold, int experiencePoints) : base(iD, name, currentHitPoints, maxHitPoints)
+        public Player(int iD, string name, int maxHitPoints, int currentHitPoints,  int gold, int experiencePoints, Dictionary<int, int> inventoryItems, bool alive) : base(iD, name, currentHitPoints, maxHitPoints)
         {
             Gold = gold;
             ExperiencePoints = experiencePoints;
-            InventoryItems = new Dictionary<int, int>();
-            Alive = true;
+            Alive = alive;
+            InventoryItems = inventoryItems;
         }
 
-        public void AddItem(int itemID)
+        public void AddItemToInventory(int itemID)
         {
-            if(InventoryItems.ContainsKey(itemID))
+            if(_inventoryItems.ContainsKey(itemID))
             {
-                InventoryItems[itemID] = InventoryItems[itemID] + 1;
+                _inventoryItems[itemID] = _inventoryItems[itemID] + 1;
             }
             else
             {
-                InventoryItems.Add(itemID, 1);
+                _inventoryItems.Add(itemID, 1);
             }
+            // Publish The Event
+            OnInventoryItemAdded( itemID);
         }
 
-        public void UseItem(int itemID)
+        public void UseItemFromInventory(int itemID)
         {
-            if (InventoryItems.ContainsKey(itemID))
+            if (_inventoryItems.ContainsKey(itemID))
             {
-                InventoryItems[itemID] = InventoryItems[itemID] - 1;
+                _inventoryItems[itemID] = _inventoryItems[itemID] - 1;
             }
+            OnInventoryItemUsed(itemID);
         }
 
         public void UseHealingPotion(int itemID)
         {
-            if (InventoryItems.ContainsKey(itemID))
+            if (_inventoryItems.ContainsKey(itemID))
             {
-                InventoryItems[itemID] = InventoryItems[itemID] - 1;
+                _inventoryItems[itemID] = _inventoryItems[itemID] - 1;
 
                 HealingPotion currentPotion = (HealingPotion)World.ItemByID(itemID);
                 CurrentHitPoints += currentPotion.AmountToHeal;
@@ -107,6 +123,7 @@ namespace Engine
                 if(CurrentHitPoints > MaxHitPoints)
                     CurrentHitPoints = MaxHitPoints;
             }
+            OnInventoryItemUsed(itemID);
 
         }
 

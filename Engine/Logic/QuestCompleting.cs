@@ -34,16 +34,14 @@ namespace Engine.Logic
 
         private static void RemovePlayerItemsToCompleteQuest()
         {
-            // Using LINQ: 
-            _player.InventoryItems = _player.InventoryItems.Select(inventoryItem =>
+            foreach (var questItem in _currentQuest.RequiredItemsToComplete)
             {
-                if(_currentQuest.RequiredItemsToComplete.TryGetValue(inventoryItem.Key, out int itemAmount))
+                int amount = questItem.Value;
+                for (int i = 1; i <= amount; i++)
                 {
-                    int updatedAmount = inventoryItem.Value - itemAmount;
-                    return new KeyValuePair<int, int>(inventoryItem.Key, updatedAmount);
+                    _player.UseItemFromInventory(questItem.Key);
                 }
-                return inventoryItem;
-            }).ToDictionary(kv => kv.Key, kv => kv.Value);
+            }
 
         }
 
@@ -51,7 +49,7 @@ namespace Engine.Logic
         {
             _player.Gold += _currentQuest.RewardGold;
             _player.AddExperiencePoints(_currentQuest.RewardExperiencePoints);
-            _player.AddItem(_currentQuest.RewardItem.ID);
+            _player.AddItemToInventory(_currentQuest.RewardItem.ID);
         }
 
         public static int CompleteTheQuest(Player player, Quest quest)
